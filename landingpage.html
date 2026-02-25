@@ -26,7 +26,7 @@
       --border-radius-sm: 8px;
       --shadow-card: 0 2px 16px rgba(0,0,0,0.06);
       --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.10);
-      --max-width: 1200px;
+      --max-width: 1440px;
     }
 
     /* ===== Reset & Base ===== */
@@ -36,7 +36,8 @@
     body {
       font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
       color: var(--color-text);
-      line-height: 1.65;
+      line-height: 1.7;
+      font-size: 1.1rem;
       background: var(--color-bg-white);
     }
 
@@ -99,15 +100,15 @@
     /* ===== Section utility ===== */
     .section-heading {
       text-align: center;
-      font-size: clamp(1.8rem, 3.8vw, 2.4rem);
+      font-size: clamp(2rem, 4vw, 2.8rem);
       color: var(--color-accent);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .section-sub {
       text-align: center;
       color: var(--color-text-muted);
-      font-size: 1.05rem;
-      max-width: 640px;
+      font-size: 1.15rem;
+      max-width: 720px;
       margin: 0 auto 56px;
     }
 
@@ -176,26 +177,28 @@
       max-width: var(--max-width);
     }
     .hero-content {
-      max-width: 54%;
+      max-width: 60%;
     }
     .hero h1 {
-      font-size: clamp(2.6rem, 5.8vw, 4rem);
+      font-size: clamp(3rem, 6vw, 4.8rem);
       font-weight: 800;
       color: var(--color-white);
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-      line-height: 1.12;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      white-space: nowrap;
     }
     .hero h1 .line-light {
-      font-weight: 400;
-      display: block;
-      font-size: clamp(2rem, 4.2vw, 2.8rem);
+      font-weight: 300;
+      display: inline;
+      font-size: inherit;
+      white-space: normal;
     }
     .hero p {
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
       color: rgba(255,255,255,0.82);
-      max-width: 540px;
-      margin-bottom: 40px;
+      max-width: 580px;
+      margin-bottom: 44px;
       font-weight: 400;
       line-height: 1.75;
     }
@@ -207,36 +210,30 @@
       padding: 90px 40px;
       background: var(--color-bg-white);
     }
-    .value-prop-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-    .value-prop-intro h2 {
-      font-size: 1.4rem;
-      color: var(--color-heading);
-      margin-bottom: 24px;
+    .value-prop-intro {
+      max-width: 100%;
+      margin-bottom: 48px;
     }
     .value-prop-intro p {
-      font-size: 1rem;
+      font-size: 1.15rem;
       line-height: 1.85;
       color: var(--color-text);
+      font-weight: 700;
     }
     .value-prop-benefits h2 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       color: var(--color-heading);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     /* Checkmark list */
     .benefit-list { list-style: none; padding: 0; }
     .benefit-list li {
       position: relative;
-      padding-left: 34px;
-      margin-bottom: 18px;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      padding-left: 38px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.75;
       color: var(--color-text);
     }
     .benefit-list li::before {
@@ -282,14 +279,14 @@
       display: block;
     }
     .criteria-card h3 {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--color-heading);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .criteria-card p {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--color-text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .criteria-card .footnote {
       font-size: 0.78rem;
@@ -301,9 +298,9 @@
       background: var(--color-navy);
       color: var(--color-white);
       border-radius: var(--border-radius);
-      padding: 24px 32px;
+      padding: 28px 36px;
       text-align: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
       line-height: 1.65;
     }
     .availability-banner strong { color: var(--color-accent); }
@@ -470,19 +467,21 @@
       background: var(--color-bg-white);
     }
     .about-zionet-content {
-      max-width: 780px;
+      max-width: 900px;
       margin: 0 auto;
-      text-align: center;
+      text-align: justify;
     }
     .about-zionet-content p {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       line-height: 1.85;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       color: var(--color-text);
     }
     .about-zionet-content strong { color: var(--color-heading); }
     .about-zionet-content .cta-row {
       margin-top: 28px;
+      text-align: center;
+    }
     }
 
     /* ==========================================================
@@ -643,8 +642,7 @@
       <div class="hero-content">
       <h1>
         <strong>ZioNet</strong>
-        <span class="line-light">Free Training Program for</span>
-        <span class="line-light">Computer Science Graduates</span>
+        <span class="line-light"> Free Training Program for Computer Science Graduates</span>
       </h1>
       <p>Kickstart your career in software development with hands-on training, mentorship, and a path to joining our team.</p>
       <a href="#register" class="btn-primary">Register Now</a>
@@ -657,18 +655,16 @@
   ============================================================ -->
   <section class="value-prop" id="value-prop">
     <div class="container">
-      <div class="value-prop-grid">
-        <div class="value-prop-intro">
-          <h2>Our Professional Training Program</h2>
-          <p>
-            Our professional training program doubles as an effective screening process &mdash;
-            giving equal opportunity to talented candidates from a broad pool. We evaluate
-            potential based on skills while providing foundational knowledge and best practices
-            to prepare participants for real roles.
-          </p>
-        </div>
-        <div class="value-prop-benefits">
-          <h2>What You'll Gain</h2>
+      <div class="value-prop-intro">
+        <p>
+          Our professional training program doubles as an effective screening process &mdash;
+          giving equal opportunity to talented candidates from a broad pool. We evaluate
+          potential based on skills while providing foundational knowledge and best practices
+          to prepare participants for real roles.
+        </p>
+      </div>
+      <div class="value-prop-benefits">
+        <h2>What You'll Gain</h2>
           <ul class="benefit-list">
             <li>
               Hands-on training in <strong>AI Agentic Systems</strong>,
@@ -678,7 +674,6 @@
             <li>Mentorship from experienced professionals throughout the process.</li>
             <li>Opportunity to join our development team.</li>
           </ul>
-        </div>
       </div>
     </div>
   </section>
