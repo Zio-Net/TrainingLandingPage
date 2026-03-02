@@ -877,7 +877,7 @@
             <div class="file-dropzone" id="dropzone" onclick="document.getElementById('cvFile').click();">
               <span class="upload-icon">📄</span>
               <span id="fileName">Drop your CV here or click to browse</span>
-              <input type="file" id="cvFile" name="cv" accept=".pdf,.doc,.docx">
+              <input type="file" id="cvFile" name="cv" accept=".pdf,.txt,.docx">
             </div>
           </div>
           <div class="form-submit">
@@ -904,17 +904,90 @@
 
   <!-- ===== JS ===== -->
   <script>
+    const TRAINING_FUNCTION_URL = 'https://func-zionet-sendmail-lx4jg47ouf6j4.azurewebsites.net/api/TrainingCandidateSendMail';
+    const TRAINING_FUNCTION_KEY = '[YOUR-FUNCTION-KEY]';
+    const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+    const ALLOWED_FILE_EXTENSIONS = ['.pdf', '.txt', '.docx'];
+
+    function getFileExtension(fileName) {
+      const index = fileName.lastIndexOf('.');
+      return index >= 0 ? fileName.substring(index).toLowerCase() : '';
+    }
+
     document.getElementById('cvFile').addEventListener('change', function () {
       const label = document.getElementById('fileName');
       label.textContent = this.files.length ? this.files[0].name : 'Drop your CV here or click to browse';
     });
 
-    document.getElementById('regForm').addEventListener('submit', function (e) {
+    document.getElementById('regForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      if (!e.target.checkValidity()) { e.target.reportValidity(); return; }
-      alert('Thank you for registering! We will be in touch soon.');
-      e.target.reset();
-      document.getElementById('fileName').textContent = 'Drop your CV here or click to browse';
+      if (!e.target.checkValidity()) {
+        e.target.reportValidity();
+        return;
+      }
+
+      const cvInput = document.getElementById('cvFile');
+      const selectedFile = cvInput.files[0];
+
+      if (!selectedFile) {
+        alert('Please attach a CV file (.pdf, .txt, or .docx) before submitting.');
+        return;
+      }
+
+      const extension = getFileExtension(selectedFile.name);
+      if (!ALLOWED_FILE_EXTENSIONS.includes(extension)) {
+        alert('Invalid file type. Allowed types are: .pdf, .txt, .docx');
+        return;
+      }
+
+      if (selectedFile.size > MAX_FILE_SIZE_BYTES) {
+        alert('File is too large. Maximum allowed size is 5 MB.');
+        return;
+      }
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const academic = document.getElementById('academic').value.trim();
+      const linkedin = document.getElementById('linkedin').value.trim();
+
+      const formData = new FormData();
+      formData.append('name', `${firstName} ${lastName}`.trim());
+      formData.append('subject', 'Training Candidate Registration');
+      formData.append('userEmail', email);
+      formData.append(
+        'message',
+        `Phone: ${phone}\nAcademic/Experience: ${academic}${linkedin ? `\nLinkedIn: ${linkedin}` : ''}`
+      );
+      formData.append('file', selectedFile);
+
+      const submitButton = e.target.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.textContent;
+
+      try {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
+        const response = await fetch(`${TRAINING_FUNCTION_URL}?code=${TRAINING_FUNCTION_KEY}`, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        alert('Thank you for registering! Your details were submitted successfully.');
+        e.target.reset();
+        document.getElementById('fileName').textContent = 'Drop your CV here or click to browse';
+      } catch (error) {
+        console.error('Training candidate submission failed:', error);
+        alert('Failed to submit registration. Please try again in a moment.');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
     });
   </script>
 
