@@ -564,6 +564,10 @@
       border-color: var(--color-accent);
       background: var(--color-accent-glow);
     }
+    .file-dropzone.is-dragover {
+      border-color: var(--color-accent);
+      background: var(--color-accent-glow);
+    }
     .file-dropzone input[type="file"] { display: none; }
     .file-dropzone .upload-icon {
       font-size: 1.4rem;
@@ -907,6 +911,54 @@
     const TRAINING_FUNCTION_URL = 'https://apim-zionet-sendmail-lx4jg47ouf6j4.azure-api.net/training-candidate/send-mail';
     const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
     const ALLOWED_FILE_EXTENSIONS = ['.pdf', '.txt', '.docx'];
+    const dropzone = document.getElementById('dropzone');
+    const cvFileInput = document.getElementById('cvFile');
+    const fileNameLabel = document.getElementById('fileName');
+
+    function updateSelectedFileLabel() {
+      fileNameLabel.textContent = cvFileInput.files.length ? cvFileInput.files[0].name : 'Drop your CV here or click to browse';
+    }
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
+      dropzone.addEventListener(eventName, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    });
+
+    dropzone.addEventListener('dragenter', function () {
+      dropzone.classList.add('is-dragover');
+    });
+
+    dropzone.addEventListener('dragover', function () {
+      dropzone.classList.add('is-dragover');
+    });
+
+    dropzone.addEventListener('dragleave', function () {
+      dropzone.classList.remove('is-dragover');
+    });
+
+    window.addEventListener('dragover', function (event) {
+      event.preventDefault();
+    });
+
+    window.addEventListener('drop', function (event) {
+      event.preventDefault();
+    });
+
+    dropzone.addEventListener('drop', function (event) {
+      dropzone.classList.remove('is-dragover');
+
+      const files = event.dataTransfer?.files;
+      if (!files || files.length === 0) {
+        return;
+      }
+
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(files[0]);
+      cvFileInput.files = dataTransfer.files;
+      updateSelectedFileLabel();
+    });
 
     function getFileExtension(fileName) {
       const index = fileName.lastIndexOf('.');
@@ -914,8 +966,7 @@
     }
 
     document.getElementById('cvFile').addEventListener('change', function () {
-      const label = document.getElementById('fileName');
-      label.textContent = this.files.length ? this.files[0].name : 'Drop your CV here or click to browse';
+      updateSelectedFileLabel();
     });
 
     document.getElementById('regForm').addEventListener('submit', async function (e) {
@@ -928,20 +979,17 @@
       const cvInput = document.getElementById('cvFile');
       const selectedFile = cvInput.files[0];
 
-      if (!selectedFile) {
-        alert('Please attach a CV file (.pdf, .txt, or .docx) before submitting.');
-        return;
-      }
+      if (selectedFile) {
+        const extension = getFileExtension(selectedFile.name);
+        if (!ALLOWED_FILE_EXTENSIONS.includes(extension)) {
+          alert('Invalid file type. Allowed types are: .pdf, .txt, .docx');
+          return;
+        }
 
-      const extension = getFileExtension(selectedFile.name);
-      if (!ALLOWED_FILE_EXTENSIONS.includes(extension)) {
-        alert('Invalid file type. Allowed types are: .pdf, .txt, .docx');
-        return;
-      }
-
-      if (selectedFile.size > MAX_FILE_SIZE_BYTES) {
-        alert('File is too large. Maximum allowed size is 5 MB.');
-        return;
+        if (selectedFile.size > MAX_FILE_SIZE_BYTES) {
+          alert('File is too large. Maximum allowed size is 5 MB.');
+          return;
+        }
       }
 
       const firstName = document.getElementById('firstName').value.trim();
@@ -959,7 +1007,9 @@
         'message',
         `Phone: ${phone}\nAcademic/Experience: ${academic}${linkedin ? `\nLinkedIn: ${linkedin}` : ''}`
       );
-      formData.append('file', selectedFile);
+      if (selectedFile) {
+        formData.append('file', selectedFile);
+      }
 
       const submitButton = e.target.querySelector('button[type="submit"]');
       const originalButtonText = submitButton.textContent;
@@ -979,7 +1029,7 @@
 
         alert('Thank you for registering! Your details were submitted successfully.');
         e.target.reset();
-        document.getElementById('fileName').textContent = 'Drop your CV here or click to browse';
+        updateSelectedFileLabel();
       } catch (error) {
         console.error('Training candidate submission failed:', error);
         alert('Failed to submit registration. Please try again in a moment.');
