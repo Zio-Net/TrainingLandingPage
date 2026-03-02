@@ -904,8 +904,7 @@
 
   <!-- ===== JS ===== -->
   <script>
-    const TRAINING_FUNCTION_URL = 'https://func-zionet-sendmail-lx4jg47ouf6j4.azurewebsites.net/api/TrainingCandidateSendMail';
-    const TRAINING_FUNCTION_KEY = '[YOUR-FUNCTION-KEY]';
+    const TRAINING_FUNCTION_URL = 'https://apim-zionet-sendmail-lx4jg47ouf6j4.azure-api.net/training-candidate/send-mail';
     const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
     const ALLOWED_FILE_EXTENSIONS = ['.pdf', '.txt', '.docx'];
 
@@ -969,7 +968,7 @@
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
 
-        const response = await fetch(`${TRAINING_FUNCTION_URL}?code=${TRAINING_FUNCTION_KEY}`, {
+        const response = await fetch(TRAINING_FUNCTION_URL, {
           method: 'POST',
           body: formData
         });
