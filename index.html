@@ -454,11 +454,21 @@
     .testimonial-card .meta {
       font-size: 1rem;
       color: var(--color-text-muted);
-      line-height: 1.4;
+      line-height: 1.45;
     }
     .testimonial-card .meta strong {
       color: var(--color-heading);
       font-size: 1.05rem;
+      display: block;
+    }
+    .testimonial-card .meta .degree {
+      color: var(--color-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: block;
+    }
+    .testimonial-card .meta .role {
+      display: block;
     }
 
     /* ==========================================================
@@ -495,6 +505,7 @@
     }
     .reg-form {
       max-width: 720px;
+      width: 100%;
       margin: 0 auto;
       background: var(--color-white);
       border: 1px solid var(--color-border);
@@ -510,6 +521,7 @@
     .form-group {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
     .form-group.full-width { grid-column: 1 / -1; }
     .form-group label {
@@ -531,6 +543,8 @@
     .form-group input[type="url"],
     .form-group textarea {
       padding: 12px 14px;
+      width: 100%;
+      max-width: 100%;
       background: var(--color-white);
       border: 1px solid var(--color-border);
       border-radius: var(--border-radius-sm);
@@ -575,6 +589,10 @@
       display: block;
       margin-bottom: 6px;
     }
+    #fileName {
+      display: block;
+      overflow-wrap: anywhere;
+    }
 
     .form-submit { grid-column: 1 / -1; margin-top: 8px; }
     .form-submit .btn-primary { width: 100%; font-size: 1.2rem; padding: 18px; }
@@ -596,6 +614,9 @@
        RESPONSIVE
     ========================================================== */
     @media (max-width: 900px) {
+      body {
+        font-size: 1.05rem;
+      }
       .container { padding: 0 24px; }
       .site-nav {
         padding: 0 20px;
@@ -636,13 +657,20 @@
         font-size: 1.1rem;
         margin-bottom: 40px;
       }
+      .section-heading {
+        font-size: clamp(1.75rem, 5vw, 2.2rem);
+      }
 
       .value-prop-intro p,
       .about-zionet-content p,
       .benefit-list li,
       .availability-banner,
       .criteria-card p {
-        font-size: 1.08rem;
+        font-size: 1rem;
+      }
+      .criteria-card h3,
+      .availability-banner {
+        font-size: 1.02rem;
       }
 
       .value-prop-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -657,10 +685,28 @@
         height: 36px;
         transform: rotate(90deg);
       }
+      .timeline-step h3 {
+        font-size: 1rem;
+      }
+      .timeline-step .step-period,
+      .timeline-step ul li {
+        font-size: 0.95rem;
+      }
       .testimonial-grid { grid-template-columns: 1fr; }
       .testimonial-card { max-width: 540px; margin: 0 auto; }
       .form-grid { grid-template-columns: 1fr; }
       .form-group.full-width { grid-column: 1; }
+      .form-group label {
+        font-size: 0.92rem;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"],
+      .form-group input[type="url"],
+      .form-group textarea,
+      .file-dropzone {
+        font-size: 0.96rem;
+      }
       .hero-content {
         max-width: 100%;
       }
@@ -685,7 +731,7 @@
 
     @media (max-width: 600px) {
       body {
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
 
       .container {
@@ -727,11 +773,36 @@
         font-size: 1rem;
       }
 
+      .value-prop,
+      .who-can-apply,
+      .program-structure,
+      .testimonials,
+      .about-zionet,
+      .registration {
+        padding-top: 56px;
+        padding-bottom: 56px;
+      }
+
+      .section-heading {
+        font-size: clamp(1.45rem, 7vw, 1.9rem);
+      }
+
+      .value-prop-intro p,
+      .about-zionet-content p,
+      .benefit-list li,
+      .criteria-card p,
+      .testimonial-card blockquote {
+        font-size: 0.95rem;
+      }
+
       .timeline-step {
         padding: 24px 16px 20px;
       }
+      .timeline-step .step-period {
+        overflow-wrap: anywhere;
+      }
       .timeline-step ul li {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
 
       .testimonial-card,
@@ -744,7 +815,23 @@
       }
 
       .reg-form {
-        padding: 20px 16px;
+        max-width: 100%;
+        padding: 16px 12px;
+      }
+
+      .form-group label {
+        font-size: 0.88rem;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"],
+      .form-group input[type="url"],
+      .form-group textarea {
+        font-size: 0.92rem;
+      }
+      .file-dropzone {
+        font-size: 0.9rem;
+        padding: 14px 10px;
       }
 
       .footer-links a {
@@ -865,7 +952,7 @@
         <div class="timeline-step">
           <span class="step-badge">1</span>
           <h3>Screening Course</h3>
-          <p class="step-period">During June – July 2026 &middot; 6–9 online sessions</p>
+          <p class="step-period">June – July 2026 &middot; 6–9 online sessions</p>
           <ul>
             <li>Focused course designed to evaluate learning ability and potential.</li>
             <li>All programming languages are welcome – we focus on conceptual thinking, problem solving, and implementing new approaches and tools.</li>
@@ -915,14 +1002,14 @@
           <blockquote>
             The program gave me a strong start to my professional journey by turning theory into practice. It provided me with advanced software development skills, as well as teamwork, ownership, and problem-solving abilities.
           </blockquote>
-          <div class="meta"><strong>– Natali</strong><br>Developer at ZioNet</div>
+          <div class="meta"><strong>– Natali</strong><span class="degree">B.Sc. Software Engineering, Afeka College of Engineering</span><span class="role">Developer at ZioNet</span></div>
         </div>
         <div class="testimonial-card">
           <img class="avatar" src="Resources/daniel.PNG" alt="Daniel">
           <blockquote>
             The hands-on experience and guidance from mentors helped me gain confidence and practical skills I now use daily in our projects.
           </blockquote>
-          <div class="meta"><strong>– Daniel</strong><br>Developer at ZioNet</div>
+          <div class="meta"><strong>– Daniel</strong><span class="degree">B.Sc. Computer Science, Lev Academic Center</span><span class="role">Developer at ZioNet</span></div>
         </div>
         <div class="testimonial-card">
           <img class="avatar" src="Resources/Jalaa.PNG" alt="Jalaa">
@@ -930,14 +1017,14 @@
             Really informative – it helped me understand practical concepts I face daily.
             Great being part of this constantly evolving environment.
           </blockquote>
-          <div class="meta"><strong>– Jalaa</strong><br>Developer at ZioNet</div>
+          <div class="meta"><strong>– Jalaa</strong><span class="degree">B.Sc. Computer Science, University of Kiryat Shmona in the Galilee</span><span class="role">Developer at ZioNet</span></div>
         </div>
         <div class="testimonial-card">
           <img class="avatar" src="Resources/Benny.jpeg" alt="Benny">
           <blockquote>
             The program transformed my academic knowledge into practical backend and DevOps skills through hands-on experience and strong mentorship. Today, I adapt backend systems for the cloud while continuously learning and growing with guidance from experienced colleagues.
           </blockquote>
-          <div class="meta"><strong>– Benny</strong><br>Developer at ZioNet</div>
+          <div class="meta"><strong>– Benny</strong><span class="degree">B.Sc. Software Engineering, Shamoon College of Engineering</span><span class="role">Developer at ZioNet</span></div>
         </div>
       </div>
     </div>
