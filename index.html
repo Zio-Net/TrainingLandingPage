@@ -451,6 +451,17 @@
       font-family: Georgia, serif;
       opacity: 0.4;
     }
+    .testimonial-card blockquote::after {
+      content: '"';
+      font-size: 3rem;
+      color: var(--color-accent);
+      position: absolute;
+      bottom: -26px;
+      right: -4px;
+      font-family: Georgia, serif;
+      opacity: 0.4;
+      line-height: 1;
+    }
     .testimonial-card .meta {
       font-size: 1rem;
       color: var(--color-text-muted);
@@ -464,7 +475,7 @@
     .testimonial-card .meta .degree {
       color: var(--color-heading);
       font-size: 1.05rem;
-      font-weight: 700;
+      font-weight: 400;
       display: block;
     }
     .testimonial-card .meta .role {
@@ -732,6 +743,10 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.95rem;
+      }
+
+      .about-zionet-content {
+        text-align: left;
       }
 
       .container {
